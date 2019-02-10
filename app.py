@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from pymongo import MongoClient
-import ast
 
 client = MongoClient("mongodb://127.0.0.1:27017")
 db = client.IMDb_database
