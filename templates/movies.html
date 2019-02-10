@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Movies!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  </head>
+  <body>
+  <div class="container">
+    <div class="row">
+      <div class="header">
+        <h1 class = "page header">Movie Gallery</h1>
+      </div>
+      <hr>
+      {% extends "template.html" %}
+      {% block content %}
+      
+      {% for image_name in gallery %}
+      <div class="col-lg-3">
+        <a href="{{url_for('home')}}, {{image_name}}"></a>
+        <figure>
+          <img alt="{{image_name['title']}}" title="{{image_name['title']}}" src= "{{image_name['thumbnail']}}"> 
+          <figcaption>
+            <h5>
+              {{image_name['title']}} ({{image_name['release_year']}})
+              <form action="{{url_for('rate')}}" method="post">
+                <input type="text" name="rating"/>
+                <input type="hidden" name="movie_obj" value="{{image_name['_id']}}" />
+                <input type="submit" value="Rate!" />
+              </form>
+            </h5>
+          </figcaption>
+        </figure>
+        <br>
+      </div>
+      {% endfor %}
+    </div>
+    {%endblock%}
+  </div>
+  </body>
+</html>
