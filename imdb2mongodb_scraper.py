@@ -9,20 +9,23 @@ def get_page_url(imdb_id):
 	input format: int<imdb_id>
 	output format: str<imdb_url>
 	"""
-	url = "https://www.imdb.com/title/tt0"+str(imdb_id)
+	if(len(str(imdb_id))<6):
+		url = "https://www.imdb.com/title/tt00"+str(imdb_id)
+	else:
+		url = "https://www.imdb.com/title/tt0"+str(imdb_id)
 	print(url)
-	return url
+	return url, str(imdb_id)
 
 def get_links():
 	"""
 	Return list of IMDb movie IDs.
 	output format: list(int)
 	"""
-	with open('links', 'r') as f:
+	with open('web_dataset', 'r') as f:
 		movie_ids = f.read()
 	return list(map(int, movie_ids.split()))
 
-def get_movie_data(imdb_url):
+def get_movie_data(imdb_url, imdb_id):
 	"""
 	Returns dict() containing movie attributes
 	input: str<imdb url>
@@ -49,25 +52,29 @@ def get_movie_data(imdb_url):
 	print(movie_title, type(movie_title))
 	print(release_year, type(release_year))
 	print(genre_list, type(genre_list))
+	print(imdb_id)
 
 	return {'title': movie_title, 'release_year': release_year,
-				'thumbnail': thumbnail_src, 'genre_list': genre_list}
+				'thumbnail': thumbnail_src, 'genre_list': genre_list, 'imdb_id': imdb_id}
 
 def check_genre(genre, genre_count):
 	"""
 	Returns boolean value for adding to MongoDB database.
 	input: list(str)<movie genre>, dict(int)<count per genre>
 	"""
+	limit = 30
 	counts = dict()
 	for i in genre:
 		if(i in genre_count.keys()):
 			counts[i] = genre_count[i]
+		"""
 		else:
 			counts[i] = 0
 			genre_count[i] = 0
-
+		"""
+	
 	movies_stored = sum(genre_count.values())
-	if(movies_stored<=200):
+	if(movies_stored<=200 and counts):
 		key = min(counts, key=counts.get)
 		print(counts)
 		print(genre_count)
@@ -81,7 +88,7 @@ def add_to_mongodb(movie, db):
 	Adds movie to database
 	input: dict<movie>, db<MongoDB client>
 	"""	
-	db.IMDb_collection_test_n.insert_one(movie)	
+	db.IMDb_collection_test_web.insert_one(movie)	
 
 
 if __name__ == '__main__':
@@ -101,7 +108,8 @@ if __name__ == '__main__':
 	for i in imdb_ids:
 		if(sum(genre_count.values())<=200):
 			try:
-				movie = get_movie_data(get_page_url(i))
+				url, imdb_id = get_page_url(i) 
+				movie = get_movie_data(url, imdb_id)
 				if check_genre(movie['genre_list'], genre_count):
 					add_to_mongodb(movie, db)
 					print('added',movie['title'],'to database!\n')
@@ -116,5 +124,5 @@ if __name__ == '__main__':
 	pprint.pprint(genre_count)
 	with open('error_log', 'w') as f:
 		for i in failed:
-			f.write(i)
+			f.write(i+" ")
 	client.close()
