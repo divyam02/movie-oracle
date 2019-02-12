@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Recommended</title>
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="header">
+					<h1 class = "page header">Recommended Movies</h1>
+				</div>
+				<hr>
+				{% extends "template.html" %}
+				{% block content %}
+
+				{% for image_name in gallery %}
+				<div class="col-lg-3">
+					<a href="{{url_for('home')}}, {{image_name}}"></a>
+					<figure>
+						<img alt="{{image_name['title']}}" title="{{image_name['title']}}" src= "{{image_name['thumbnail']}}"> 
+						<figcaption>
+							<h5>
+							{{image_name['title']}} ({{image_name['release_year']}})
+							</h5>
+						</figcaption>
+					</figure>
+					<br>
+				</div>
+				{% endfor %}
+				<form action="{{url_for('movies')}}" method="post">
+					<input type="button" name="back" value="Back" />
+				</form>
+			</div>
+			{%endblock%}
+		</div>
+  
+	</body>
+</html>
