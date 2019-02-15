@@ -24,7 +24,7 @@ I was able to optimize the calculations (especially the Similarity Matrix) by us
 Same as User based filtering, I took the transpose of the initial matrix of users and items for ratings and followed a similar structure. Optimized with numpy operations. The algorithm returns ratings for an item weighted by the similarity of that item to others and the user's ratings for those items.
 ### Matrix Factorization
 I attempted to represent this as two matrices with vectors of users and items containing latent features. I used stochastic gradient descent to optimize the weights after solving the update rules for myself. I have managed to optimize it somewhat with numpy, and I am obtaining convergence in 600 iterations. 
-### Online Learing Rapid Recommendation
+### Online Learning Rapid Recommendation
 The convergence of validation loss for the previous method usually takes more than 30 seconds, after which Heroku requests a timeout and the application crashes. For that purpose I performed gradient descent on a single vector representing the user input ratings and trained it using the optimized item-latent-factor matrix and optimized item bias I calculated in the previous method. This allows for rapid training online to produce recommendations without having to resolve the original ratings matrix.
 
 ## Sources
