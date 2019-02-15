@@ -34,6 +34,8 @@ K  is optimally = 5, at least for my dataset
 
 ![alt text](https://github.com/divyam02/movie-oracle/blob/master/mf_plots/k_variance.png)
 
+(The Orange Line is the average RMSE for K. The blue is a usual example)
+
 ## Sources
 ### Matrix Factorization
 1. Equations and update rules: https://stanford.edu/~rezab/classes/cme323/S16/projects_reports/baalbaki.pdf
