@@ -36,6 +36,9 @@ K  is optimally = 5, at least for my dataset
 
 (The Orange Line is the average RMSE for K. The blue is a usual example)
 
+## Usage
+Open the Heroku link and rate movies individually ie, insert a number from 1 to 5 in the text box and click rate. Wait for the page to refresh and continue. After 5 input, the page takes you to the Recommendation page.
+
 ## Sources
 ### Matrix Factorization
 1. Equations and update rules: https://stanford.edu/~rezab/classes/cme323/S16/projects_reports/baalbaki.pdf
