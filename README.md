@@ -32,7 +32,7 @@ K is the number of ratings the user must input in order to recieve K recommendat
 
 K  is optimally = 5, at least for my dataset
 
-![alt text](https://raw.githubusercontent.com/divyam02/movie-oracle/mf_plots/k_variance.png)
+![alt text](https://github.com/divyam02/movie-oracle/blob/master/mf_plots/k_variance.png)
 
 ## Sources
 ### Matrix Factorization
