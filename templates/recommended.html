@@ -13,11 +13,12 @@
 				<div class="header">
 					<h1 class = "page header">Recommended Movies</h1>
 				</div>
-				<hr>
 				{% extends "template.html" %}
 				{% block content %}
-
-				{% for image_name in gallery %}
+				<p>
+				<h2><center>User-User Collaborative Filtering</center></h2>
+				<br>
+				{% for image_name in rec_user %}
 				<div class="col-lg-3">
 					<a href="{{url_for('home')}}, {{image_name}}"></a>
 					<figure>
@@ -31,9 +32,47 @@
 					<br>
 				</div>
 				{% endfor %}
-				<form action="{{url_for('movies')}}" method="post">
-					<input type="button" name="back" value="Back" />
-				</form>
+				</p>
+			</div>
+			<div class="row">
+				<p>
+				<h2><center>Item-Item Collaborative Filtering</center></h2>
+				<br>
+				{% for image_name in rec_item %}
+				<div class="col-lg-3">
+					<a href="{{url_for('home')}}, {{image_name}}"></a>
+					<figure>
+						<img alt="{{image_name['title']}}" title="{{image_name['title']}}" src= "{{image_name['thumbnail']}}"> 
+						<figcaption>
+							<h5>
+							{{image_name['title']}} ({{image_name['release_year']}})
+							</h5>
+						</figcaption>
+					</figure>
+					<br>
+				</div>
+				{% endfor %}
+				</p>
+			</div>
+			<div class="row">
+				<p>
+				<h2><center>Matrix Factorization (SGD)</center></h2>
+				<br>
+				{% for image_name in rec_mf %}
+				<div class="col-lg-3">
+					<a href="{{url_for('home')}}, {{image_name}}"></a>
+					<figure>
+						<img alt="{{image_name['title']}}" title="{{image_name['title']}}" src= "{{image_name['thumbnail']}}"> 
+						<figcaption>
+							<h5>
+							{{image_name['title']}} ({{image_name['release_year']}})
+							</h5>
+						</figcaption>
+					</figure>
+					<br>
+				</div>
+				{% endfor %}
+				</p>
 			</div>
 			{%endblock%}
 		</div>
