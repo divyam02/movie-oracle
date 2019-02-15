@@ -1,4 +1,4 @@
-import numpy as np
+#import numpy as np
 import pandas as pd
 import random
 import math
@@ -115,6 +115,7 @@ def save_optimized_matrix(user_matrix, movie_matrix):
 	np.save('opt_user_matrix', user_matrix)
 	np.save('opt_movie_matrix', movie_matrix)
 
+"""
 if __name__=="__main__":
 	df_ratings= pd.read_csv("rate.csv")
 	df_movies = pd.read_csv("./ml-latest-small/movies.csv")
@@ -159,7 +160,7 @@ if __name__=="__main__":
 
 
 
-	"""
+	
 	print(df_ratings.head())
 	print(table.head())
 	print(user_ids)
@@ -167,5 +168,5 @@ if __name__=="__main__":
 	print(max(df_ratings['movieId']))
 	print(movie_ids[-1])
 	print(max(movie_ids))
-	"""
+"""
 

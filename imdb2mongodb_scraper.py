@@ -88,12 +88,12 @@ def add_to_mongodb(movie, db):
 	Adds movie to database
 	input: dict<movie>, db<MongoDB client>
 	"""	
-	db.IMDb_collection_test_web.insert_one(movie)	
+	db.imdb_collection.insert_one(movie)	
 
 
 if __name__ == '__main__':
-	client = MongoClient()
-	db = client.IMDb_database
+	client = MongoClient("mongodb://priyam:divsmlab0@ds135305.mlab.com:35305/moviedb")
+	db = client.moviedb
 	failed = list()
 	imdb_ids = get_links()
 	genre_count={'Action':0,

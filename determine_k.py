@@ -1,5 +1,13 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import random
+
+"""
+We describe a measure for K, the number of movies we rate before being shown K other similar movies. Users who have rated atleast 20 movies are selected.
+We randomly select k rated movies and recommend K more. We then detemine how many of the user's better rated movies (3+ stars) were present in the K 
+recommended movies.
+"""
+
 import time
 
 
@@ -151,7 +159,7 @@ def predict_by_item_naive(user_vector, ratings_matrix, similarity_matrix, k=10):
 			top_predict[item_idx] = item_avg_rating[item_idx] + temp_vector.dot(similarity_matrix[item_idx])/np.sum(np.absolute(temp_sim_vector))
 
 	#print(top_predict, 'top_predict, item')
-	top_k_movies = [a for a, b in sorted(top_predict.items(), key=lambda kv:kv[1], reverse=True)]
+	top_k_movies = [(a, b) for a, b in sorted(top_predict.items(), key=lambda kv:kv[1], reverse=True)]
 
 	return top_k_movies[:k]	
 
@@ -191,6 +199,7 @@ def train(ratings_matrix, user_matrix, item_matrix, user_bias, item_bias, rating
 
 	@Note
 	"""
+	print('GERONIMO!')
 	validation_error = float('inf')
 
 	train_matrix, test_matrix = util_train_test_split(np.copy(ratings_matrix))
@@ -280,7 +289,7 @@ def predict_by_mf_naive(user_vector, ratings_matrix, latent_factors = 3, k=10):
 		if np.isnan(user_vector[i]):
 			top_predict[i] = user_vector_full[i]
 
-	top_k_movies = [a for a, b in sorted(top_predict.items(), key=lambda kv:kv[1], reverse=True)]
+	top_k_movies = [(a, b) for a, b in sorted(top_predict.items(), key=lambda kv:kv[1], reverse=True)]
 	
 	return top_k_movies[:k]
 
@@ -355,3 +364,91 @@ def predict_by_mf_online(user_vector, k=10, latent_factors=3, alpha=1e-3, beta=1
 	#print(top_k_movies)
 	
 	return top_k_movies[:k]	
+
+
+if __name__ == '__main__':
+	
+
+	dict_arr = []
+
+	for D in range(10):
+
+		fig = plt.figure()
+		ax = plt.axes()
+		x = np.linspace(0, 10, 1000)
+		ratings_matrix = np.load('ratings_matrix_for_web.npy')
+
+		minimum = float('inf')
+		index = -1
+		not_nan_idx =[]
+
+		min_user = np.random.randint(len(ratings_matrix))
+
+		for i in range(len(ratings_matrix[min_user])):
+			if not np.isnan(ratings_matrix[min_user, i]):
+				not_nan_idx.append(i)
+
+		ratings_matrix = np.delete(ratings_matrix, (min_user), axis=0)
+
+		test_vector = np.zeros_like(ratings_matrix[min_user])
+
+		score_dict = dict()
+		i_list=[]
+		value_list=[]
+
+		for i in [3, 5, 7]:
+			score_mf = 0
+
+			known_idx = random.sample(range(len(not_nan_idx)), i)
+			test_vector[:] = np.nan
+			div = 0
+			for j in known_idx:
+				test_vector[not_nan_idx[j]] = ratings_matrix[min_user, not_nan_idx[j]]
+
+
+			top_pred_mf = predict_by_mf_naive(np.copy(test_vector), np.copy(ratings_matrix), k=i)
+
+			for k, p in top_pred_mf:
+				print('predicted rating:', p, 'actual rating by user:', ratings_matrix[min_user, k])
+				if not np.isnan(ratings_matrix[min_user, k]):
+					div += 1
+					if ratings_matrix[min_user, k] > 3:
+						score = p - ratings_matrix[min_user, k]
+						score = score * score
+						score_mf += score
+
+			score_mf /= div
+			score_dict[i] = score_mf
+			i_list.append(i)
+			value_list.append(score_mf)
+			print('for k =', i, 'score:', score_mf)
+		
+		#plt.show(i_list, value_list)
+		plt.plot(i_list, value_list)
+		plt.savefig(str(D)+" "+str(i))
+		dict_arr.append(score_dict)
+
+
+	_3_avg = 0
+	_5_avg = 0
+	_7_avg = 0
+
+	for i in dict_arr:
+		for j in list(i.keys()):
+			if j==3:
+				_3_avg+=i[j]
+			elif j==5:
+				_5_avg+=i[j]
+			else:
+				_7_avg+=i[j]
+
+	_3_avg /= len(dict_arr)
+	_5_avg /= len(dict_arr)
+	_7_avg /= len(dict_arr)
+
+	plt.plot([3, 5, 7], [_3_avg, _5_avg, _7_avg])
+	plt.savefig('k_variance')
+
+	print(dict_arr)
+
+	#plt.show()
