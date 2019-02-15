@@ -9,7 +9,7 @@ Web application available on Heroku at this link: https://movie-oracle.herokuapp
 
 # Approach
 ## MongoDB database
-I started off by building a webscraper for IMDb. I used `links.csv` and `ratings.csv` of the GroupLens dataset to obtaid a list of IMDb URLs. I then wrote a script that processed 200 of the most rated (the number of people who have rated it) movies and separated them into bins, based on some genres. The sampling was done for a closer aproximation of real world movies. 
+I started off by building a webscraper for IMDb. I used `links.csv` and `ratings.csv` of the GroupLens dataset to obtaid a list of IMDb URLs. I then wrote a script that processed 200 of the most rated (the number of people who have rated it) movies and separated them into bins, based on some genres for 50 users. The sampling was done for a closer aproximation of real world movies. 
 
 Action | Romance | Comedy | Drama | Horror | Sci-fi | Animation | Fantasy
 -------|---------|--------|-------|--------|--------|-----------|-------
@@ -26,6 +26,13 @@ Same as User based filtering, I took the transpose of the initial matrix of user
 I attempted to represent this as two matrices with vectors of users and items containing latent features. I included user and item biases for ratings and L2 regularization for the loss function. I used stochastic gradient descent to optimize the weights after solving the update rules for myself. I have managed to optimize it somewhat with numpy, and I am obtaining convergence in 600 iterations. 
 ### Online Learning Rapid Recommendation
 The convergence of validation loss for the previous method usually takes more than 30 seconds, after which Heroku requests a timeout and the application crashes. For that purpose I performed gradient descent on a single vector representing the user input ratings and trained it using the optimized item-latent-factor matrix and optimized item bias I calculated in the previous method. This allows for rapid training online to produce recommendations without having to resolve the original ratings matrix.
+
+##  Deciding K
+K is the number of ratings the user must input in order to recieve K recommendation. I was able calculate the RMSE for the predicted ratings of the top K movies the matrix factorization algorithm returns against the actual ratings given by the user. I did this by keeping only K random ratings in the ratings vector of the user and making the rest unrated (NaN). Then using the matrix factorizing algorithm, I got predictions for the other items and calculated RMSE for top K. I then averaged over the RMSE errors I got for various values of K over 10 randomly selected users. 
+
+K  is optimally = 5, at least for my dataset
+
+
 
 ## Sources
 ### Matrix Factorization
