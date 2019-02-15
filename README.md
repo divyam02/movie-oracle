@@ -64,7 +64,7 @@ Main components:
 ## Sources
 ### Matrix Factorization
 1. Equations and update rules: https://stanford.edu/~rezab/classes/cme323/S16/projects_reports/baalbaki.pdf
-2. References for implementation: https://blog.insightdatascience.com/explicit-matrix-factorization-als-sgd-and-all-that-jazz-b00e4d9b21ea#intromf
+2. References for implementation: https://blog.insightdatascience.com/explicit-matrix-factorization-als-sgd-and-all-that-jazz-b00e4d9b21ea#intromf , http://www.albertauyeung.com/post/python-matrix-factorization/
 ### Collaborative Filtering
 1. The equations for getting similarity: https://en.wikipedia.org/wiki/Collaborative_filtering
 2. References for implementation: https://www.ethanrosenthal.com/2015/11/02/intro-to-collaborative-filtering/
