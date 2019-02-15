@@ -39,8 +39,20 @@ K  is optimally = 5, at least for my dataset
 ## Usage
 Open the Heroku link. Rate movies individually, ie insert a number from 1 to 5 in the text box and click "Rate!". Wait for the page to refresh, then continue with the next rating. After five inputs, the application takes you to the Recommendation page.
 
+Run the application locally using `python3 app.py`.
+
 ## Bugs
 Due to some logical bug, Null objects are inserted in the database, while rejecting a movie. If this movie is recommended by the application it appears as a `()` in the page.
+
+## Directory Structure and Files
+No directories, apart from `templates` used to store HTML files and `mf_plots` that store the RMSE plots over values of K, the items rated by a user. 
+Main components:
+
+.`collab_filter.py`: All Matrix Factorization and Collaborative Filtering Algorithms 
+. `app.py`: The main web application, prints debug notes in the console. Run the application locally using `python3 app.py`
+. `determine_k.py`: Used for computing the optimal K value.
+. `imdb2mongodb_scraper.py`: Used for building MongoDB database on `mlab`.
+. `get_opt_matrices.py`: Used to compute `optimized_item_matrix` and `optimized_item_bias`.
 
 ## Sources
 ### Matrix Factorization
