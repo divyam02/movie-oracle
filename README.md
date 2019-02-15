@@ -37,7 +37,10 @@ K  is optimally = 5, at least for my dataset
 (The Orange Line is the average RMSE for K. The blue is a usual example)
 
 ## Usage
-Open the Heroku link and rate movies individually ie, insert a number from 1 to 5 in the text box and click rate. Wait for the page to refresh and continue. After 5 input, the page takes you to the Recommendation page.
+Open the Heroku link. Rate movies individually, ie insert a number from 1 to 5 in the text box and click "Rate!". Wait for the page to refresh, then continue with the next rating. After five inputs, the application takes you to the Recommendation page.
+
+## Bugs
+Due to some logical bug, Null objects are inserted in the database, while rejecting a movie. If this movie is recommended by the application it appears as a `()` in the page.
 
 ## Sources
 ### Matrix Factorization
