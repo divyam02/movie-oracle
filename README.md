@@ -42,7 +42,7 @@ Open the Heroku link. Rate movies individually, ie insert a number from 1 to 5 i
 Run the application locally using `python3 app.py`.
 
 ## Bugs
-Due to some logical bug, Null objects are inserted in the database, while rejecting a movie. If this movie is recommended by the application it appears as a `()` in the page.
+On the front end. Due to some logical bug, Null objects are inserted in the database, while rejecting a movie. If this movie is recommended by the application, it appears as a `()` in the page.
 
 ## Directory Structure and Files
 No directories, apart from `templates` used to store HTML files and `mf_plots` that store the RMSE plots over values of K, the items rated by a user. 
@@ -52,6 +52,13 @@ Main components:
 3. `determine_k.py`: Used for computing the optimal K value.
 4. `imdb2mongodb_scraper.py`: Used for building MongoDB database on `mlab`.
 5. `get_opt_matrices.py`: Used to compute `optimized_item_matrix` and `optimized_item_bias`.
+
+## Dependencies
+1. `Python 3.7`: Heroku uses the latest version of python.
+2. `pymongo`: To communicate with `mlab` and handle all requests
+3. `beautifulsoup4`: To use for web scraping
+4. `flask`: Front-end and back-end related interfaces.
+5. `numpy`: To process matrix and vector operations
 
 ## Sources
 ### Matrix Factorization
