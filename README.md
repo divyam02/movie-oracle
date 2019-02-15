@@ -6,6 +6,7 @@ A movie recommendation system, with implementations of:
 4. Online Learning for Rapid Recommendations
 
 Web application available on Heroku at this link: https://movie-oracle.herokuapp.com/movies
+For usage, refer to the `Usage` section below.
 
 # Approach
 ## MongoDB database
@@ -37,7 +38,7 @@ K  is optimally = 5, at least for my dataset
 (The Orange Line is the average RMSE for K. The blue is a usual example)
 
 ## Usage
-Open the Heroku link. Rate movies individually, ie insert a number from 1 to 5 in the text box and click "Rate!". Wait for the page to refresh, then continue with the next rating. After five inputs, the application takes you to the Recommendation page.
+Open the Heroku link. Rate movies individually, ie insert a number from 1 to 5 in the text box and click "Rate!". Wait for the page to refresh, then continue with the next rating. Please note that the app can't take multiple values at once and each movie must be rated one at a time. After five inputs, the application takes you to the Recommendation page.
 
 Run the application locally using `python3 app.py`.
 
