@@ -13,11 +13,19 @@ I started off by building a webscraper for IMDb. I used `links.csv` and `ratings
 
 Action | Romance | Comedy | Drama | Horror | Sci-fi | Animation | Fantasy
 -------|---------|--------|-------|--------|--------|-----------|-------
-30  | 17 | 29 | 37  | 29  | 10  | 20  | 29
+30  | 17 | 29 | 37  | 10  | 29 | 20  | 29
 
 I used `mlab` to host my MongoDB data set.
 
 ## Algorithms
+### User-User Collaborative Filtering
+I was able to optimize the calculations (especially the Similarity Matrix) by using numpy operations. I also enabled it to take weights of the top N similar users. Metric for similarity was Cosine Similarity. The algorithm returns ratings for an item weighed by the similarity of other users to itself.
+### Item-Item Collaborative Filtering
+Same as User based filtering, I took the transpose of the initial matrix of users and items for ratings and followed a similar structure. Optimized with numpy operations. The algorithm returns ratings for an item weighted by the similarity of that item to others and the user's ratings for those items.
+### Matrix Factorization
+I attempted to represent this as two matrices with vectors of users and items containing latent features. I used stochastic gradient descent to optimize the weights after solving the update rules for myself. I have managed to optimize it somewhat with numpy, and I am obtaining convergence in 600 iterations. 
+### Online Learing Rapid Recommendation
+The convergence of validation loss for the previous method usually takes more than 30 seconds, after which Heroku requests a timeout and the application crashes. For that purpose I performed gradient descent on a single vector representing the user input ratings and trained it using the optimized item-latent-factor matrix and optimized item bias I calculated in the previous method. This allows for rapid training online to produce recommendations without having to resolve the original ratings matrix.
 
 ## Sources
 ### Matrix Factorization
