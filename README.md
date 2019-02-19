@@ -5,7 +5,7 @@ A movie recommendation system, with implementations of:
 3. Matrix Factorization with Stochastic Gradient Descent
 4. Online Learning for Rapid Recommendations
 
-Web application available on Heroku at this link: https://movie-oracle.herokuapp.com/movies
+`Flask` based web application available on Heroku at this link: https://movie-oracle.herokuapp.com/movies
 For usage, refer to the `Usage` section below.
 
 # Approach
@@ -16,7 +16,7 @@ Action | Romance | Comedy | Drama | Horror | Sci-fi | Animation | Fantasy
 -------|---------|--------|-------|--------|--------|-----------|-------
 30  | 17 | 29 | 37  | 10  | 29 | 20  | 29
 
-I used `mlab` to host my MongoDB data set.
+I used `mlab` to host my MongoDB database and `beautifulsoup4` to parse the HTML files
 
 ## Algorithms
 ### User-User Collaborative Filtering
@@ -42,6 +42,8 @@ Open the Heroku link. Rate movies individually, ie insert a number from 1 to 5 i
 
 Run the application locally using `python3 app.py`.
 
+The web application was made using `flask`. Communication with the MongoDB database with 'POST' and 'GET' requests using `pymongo`.
+
 ## Bugs
 On the front end. Due to some logical bug, Null objects are inserted in the database, while rejecting a movie. If this movie is recommended by the application, it appears as a `()` in the page.
 
@@ -56,10 +58,10 @@ Main components:
 
 ## Dependencies
 1. `Python 3.7`: Heroku uses the latest version of python.
-2. `pymongo`: To communicate with `mlab` and handle all requests
-3. `beautifulsoup4`: To use for web scraping
+2. `pymongo`: To communicate with the MongoDB database hosted at `mlab` and handle all requests.
+3. `beautifulsoup4`: To use for web scraping.
 4. `flask`: Front-end and back-end related interfaces.
-5. `numpy`: To process matrix and vector operations
+5. `numpy`: To process matrix and vector operations.
 
 ## Sources
 ### Matrix Factorization
