@@ -6,7 +6,7 @@ A movie recommendation system, with implementations of:
 4. Online Learning for Rapid Recommendations
 
 `Flask` based web application available on Heroku at this link: https://movie-oracle.herokuapp.com/movies
-For usage, refer to the `Usage` section below.
+For usage, refer to the `Usage` section below. ***EDIT: The link is temporarily down***
 
 # Approach
 ## MongoDB database
